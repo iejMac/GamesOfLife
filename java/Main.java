@@ -25,17 +25,39 @@ class Game {
 			System.out.println(Arrays.toString(row));
 		}
   }
+  
+  public int getPopulation(int i, int j){
+    int sum = 0;
+    for(int row = Math.max(0, i-1) ; row <= Math.min(i + 1, this.universe_size-1) ; row++){
+      for(int col = Math.max(0, j-1) ; col <= Math.min(j + 1, this.universe_size-1) ; col++){
+        sum += this.universe[row][col];
+      }
+    }
+    return sum;
+  }
+
+  public void step() {
+    int[][] new_universe = new int[this.universe_size][this.universe_size];
+    for(int i = 0 ; i < this.universe_size ; i++){
+      for(int j = 0 ; j < this.universe_size ; j++){
+        int pop = getPopulation(i, j);
+        new_universe[i][j] = (((this.universe[i][j] == 0) && pop == 3) || ((this.universe[i][j] == 1) && ((pop >= 2) && (pop <= 3)))) ? 1 : 0;
+      }
+    }
+    this.universe = new_universe;
+  }
 }
 
 public class Main {
   public static void main(String[] args) {
     int universe_length = 10;
     Game uni = new Game(10);
-
-    uni.showUniverse();
 		uni.randomPopulation();
-    uni.showUniverse();
 
+    for(int i =0  ; i < 10 ; i++){
+      uni.showUniverse();
+      System.out.println();
+      uni.step();
+    }
   }
 }
-
