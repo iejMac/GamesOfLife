@@ -1,5 +1,9 @@
 import java.util.Arrays;
 import java.util.Random;
+import java.awt.Color;
+
+import javax.swing.JFrame;
+
 
 class Game {
   
@@ -20,10 +24,14 @@ class Game {
     }
   }
 
-  public void showUniverse() {
-    for(int[] row : this.universe){
-      System.out.println(Arrays.toString(row));
-    }
+  public void showUniverse() { 
+    JFrame frame = new JFrame();
+    frame.setTitle("Game of Life");
+    frame.setSize(420, 420);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setResizable(false);
+    frame.setVisible(true);
+    frame.getContentPane().setBackground(Color.darkGray);
   }
   
   public int getPopulation(int i, int j){
@@ -53,11 +61,7 @@ public class Main {
     int universe_length = 10;
     Game uni = new Game(10);
     uni.randomPopulation();
+    uni.showUniverse();
 
-    for(int i =0  ; i < 10 ; i++){
-      uni.showUniverse();
-      System.out.println();
-      uni.step();
-    }
   }
 }
